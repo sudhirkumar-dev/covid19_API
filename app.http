@@ -1,0 +1,15 @@
+####
+//get states
+GET http://localhost:3000/states/
+
+####
+//get state
+GET http://localhost:3000/states/1/
+
+####
+//post district
+POST http://localhost:3000/districts/
+
+####
+//GET district
+GET http://localhost:3000/districts/1/
