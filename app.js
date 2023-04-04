@@ -70,7 +70,7 @@ app.post("/districts/", async (req, res) => {
   const postDistrictQuery = `
   INSERT INTO district (district_name,state_id,cases,cured,active,deaths) 
   VALUES
-  (${districtName}, '${stateId}', '${cases}', '${cured}', '${active}', '${deaths}');`;
+  ('${districtName}', '${stateId}', '${cases}', '${cured}', '${active}', '${deaths}');`;
   await database.run(postDistrictQuery);
   response.send("District Successfully Added");
 });
