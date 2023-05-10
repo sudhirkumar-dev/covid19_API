@@ -48,13 +48,31 @@ const convertStateDbObjectToResponseObject = (dbObject) => {
   };
 };
 
+const reportSnakeToCamelCase = (dbObject) => {
+  return {
+    totalCases: dbObject.cases,
+    totalCured: dbObject.cured,
+    totalActive: dbObject.active,
+    totalDeaths: dbObject.deaths,
+  };
+};
+
+// app.get("/states/", async (req, res) => {
+//   const getStatesQuery = `
+//     SELECT state_name FROM state;`;
+//   const statesArray = await database.all(getStatesQuery);
+//   res.send(
+//     statesArray.map((eachState) => ({ stateName: eachState.state_name }))
+//   );
+// });
+
 app.get("/states/", async (req, res) => {
-  const getStatesQuery = `
-    SELECT state_name FROM state;`;
-  const statesArray = await database.all(getStatesQuery);
-  res.send(
-    statesArray.map((eachState) => ({ stateName: eachState.state_name }))
-  );
+  const allStatesList = `SELECT * FROM state ORDER_BY state_id;`;
+  const statesList = await database.all(allStatesList);
+  const statesResult = statesList.map((eachObject) => {
+    return convertStateDbObjectToResponseObject(eachObject);
+  });
+  res.send(statesResult);
 });
 
 app.get("/states/:stateId/", async (req, res) => {
